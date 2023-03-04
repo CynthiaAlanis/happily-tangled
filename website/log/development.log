@@ -1,0 +1,63 @@
+  [1m[35m (113.6ms)[0m  [1m[35mCREATE DATABASE "website_development" ENCODING = 'unicode'[0m
+  [1m[35m (61.1ms)[0m  [1m[35mCREATE DATABASE "website_test" ENCODING = 'unicode'[0m
+  [1m[35m (13.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (7.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4800026837596737495)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreatePlushes (20230304042018)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.4ms)[0m  [1m[35mCREATE TABLE "plushes" ("id" bigserial primary key, "name" character varying, "image_url" character varying, "slug" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230304042018"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateReviews (20230304042307)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.7ms)[0m  [1m[35mCREATE TABLE "reviews" ("id" bigserial primary key, "title" character varying, "description" character varying, "score" integer, "plush_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_0551970408"
+FOREIGN KEY ("plush_id")
+  REFERENCES "plushes" ("id")
+)[0m
+  [1m[35m (0.6ms)[0m  [1m[35mCREATE INDEX "index_reviews_on_plush_id" ON "reviews" ("plush_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20230304042307"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.6ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2023-03-04 04:25:52.540162"], ["updated_at", "2023-03-04 04:25:52.540162"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(4800026837596737495)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlush Create (1.0ms)[0m  [1m[32mINSERT INTO "plushes" ("name", "image_url", "slug", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Dinosaur"], ["image_url", "https://i0.wp.com/www.amorecraftylife.com/wp-content/uploads/2023/01/winston-dinosaur-crochet-pattern.jpg?resize=730%2C821&ssl=1"], ["slug", "dinosaur"], ["created_at", "2023-03-04 05:07:35.101195"], ["updated_at", "2023-03-04 05:07:35.101195"]]
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlush Create (0.3ms)[0m  [1m[32mINSERT INTO "plushes" ("name", "image_url", "slug", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Axolotl"], ["image_url", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzcfXxJuVFyDKkWnyQUTxTlYeeATKMjDlFRQ&usqp=CAU"], ["slug", "axolotl"], ["created_at", "2023-03-04 05:07:35.135451"], ["updated_at", "2023-03-04 05:07:35.135451"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlush Create (0.1ms)[0m  [1m[32mINSERT INTO "plushes" ("name", "image_url", "slug", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Fox"], ["image_url", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDLxLHIpjAR7_PaMHUNNujuoMo46hjGgdGFQ&usqp=CAU"], ["slug", "fox"], ["created_at", "2023-03-04 05:07:35.137343"], ["updated_at", "2023-03-04 05:07:35.137343"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlush Create (0.2ms)[0m  [1m[32mINSERT INTO "plushes" ("name", "image_url", "slug", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Bear"], ["image_url", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIKQzyt1AiFVB_jFPO2tNJPLXY0w7Gf1qj-g&usqp=CAU"], ["slug", "bear"], ["created_at", "2023-03-04 05:07:35.138802"], ["updated_at", "2023-03-04 05:07:35.138802"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlush Create (0.2ms)[0m  [1m[32mINSERT INTO "plushes" ("name", "image_url", "slug", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Snail"], ["image_url", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTo1NpCgIKsXtdv07gu6zfBZ9SWdlHYiW2U6Okw57aivcVt6xaUQzpNoRGCWbtM6k2lISQ&usqp=CAU"], ["slug", "snail"], ["created_at", "2023-03-04 05:07:35.140364"], ["updated_at", "2023-03-04 05:07:35.140364"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlush Create (0.2ms)[0m  [1m[32mINSERT INTO "plushes" ("name", "image_url", "slug", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Smores"], ["image_url", "https://i.etsystatic.com/22457240/c/1080/858/0/59/il/33d094/4252849037/il_500x500.4252849037_lr58.jpg"], ["slug", "smores"], ["created_at", "2023-03-04 05:07:35.141935"], ["updated_at", "2023-03-04 05:07:35.141935"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlush Create (0.2ms)[0m  [1m[32mINSERT INTO "plushes" ("name", "image_url", "slug", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Cow"], ["image_url", "https://sc04.alicdn.com/kf/Hb2750bcef8d74675bdbd3c93677597c6n/228364487/Hb2750bcef8d74675bdbd3c93677597c6n.jpg"], ["slug", "cow"], ["created_at", "2023-03-04 05:07:35.143490"], ["updated_at", "2023-03-04 05:07:35.143490"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlush Create (0.1ms)[0m  [1m[32mINSERT INTO "plushes" ("name", "image_url", "slug", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Bunny"], ["image_url", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwF_ZBhIOFwKVwOi4gHh-Nb16TG_J3-LFY2A&usqp=CAU"], ["slug", "bunny"], ["created_at", "2023-03-04 05:07:35.145000"], ["updated_at", "2023-03-04 05:07:35.145000"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mPlush Create (0.2ms)[0m  [1m[32mINSERT INTO "plushes" ("name", "image_url", "slug", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["name", "Dragon"], ["image_url", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxcf5_d-gz50Wkswfc9yEHUMh3j0XDX-HrE0-dwNX-EdpmqIQ7LdkCJiuwQHMeF5Qwi5E&usqp=CAU"], ["slug", "dragon"], ["created_at", "2023-03-04 05:07:35.146412"], ["updated_at", "2023-03-04 05:07:35.146412"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mReview Create (2.1ms)[0m  [1m[32mINSERT INTO "reviews" ("title", "description", "score", "plush_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Good"], ["description", "great quality"], ["score", 5], ["plush_id", 1], ["created_at", "2023-03-04 05:07:35.161356"], ["updated_at", "2023-03-04 05:07:35.161356"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mReview Create (0.2ms)[0m  [1m[32mINSERT INTO "reviews" ("title", "description", "score", "plush_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Bad"], ["description", "Bad quality"], ["score", 1], ["plush_id", 1], ["created_at", "2023-03-04 05:07:35.165340"], ["updated_at", "2023-03-04 05:07:35.165340"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mPlush Load (0.4ms)[0m  [1m[34mSELECT "plushes".* FROM "plushes" ORDER BY "plushes"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mPlush Count (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "plushes"[0m
+  [1m[36mReview Count (1.4ms)[0m  [1m[34mSELECT COUNT(*) FROM "reviews"[0m
